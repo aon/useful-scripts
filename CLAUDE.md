@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-Collection of standalone bash scripts designed to be fetched and executed via `wget | bash` (or `curl | bash`). Each script is a self-contained Linux/macOS utility.
+Collection of standalone bash scripts designed to be fetched and executed via `curl | bash`. Each script is a self-contained Linux/macOS utility.
 
 ## Repository Structure
 
@@ -28,7 +28,7 @@ When adding or modifying a script, update `README.md` with an entry for it. Each
 One-line description of what it does.
 
 \```bash
-wget -qO- https://raw.githubusercontent.com/aon/useful-scripts/main/script-name.sh | bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/main/script-name.sh | bash
 \```
 ```
 
@@ -38,5 +38,5 @@ Keep descriptions terse — sacrifice grammar for brevity (e.g., "Install and co
 
 Remote: `github.com/aon/useful-scripts`. Scripts are served via GitHub raw URLs:
 ```
-wget -qO- https://raw.githubusercontent.com/aon/useful-scripts/main/<script>.sh | bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/main/<script>.sh | bash
 ```
