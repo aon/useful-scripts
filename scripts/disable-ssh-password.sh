@@ -44,8 +44,8 @@ PermitRootLogin=prohibit-password
 for entry in $settings; do
     key="${entry%%=*}"
     value="${entry#*=}"
-    if grep -qE "^\s*#?\s*${key}\b" "$SSHD_CONFIG"; then
-        sed -E "s/^\s*#?\s*${key}\b.*/${key} ${value}/" "$SSHD_CONFIG" > "${SSHD_CONFIG}.tmp" \
+    if grep -qE "^\s*${key}\b" "$SSHD_CONFIG"; then
+        sed -E "s/^\s*${key}\b.*/${key} ${value}/" "$SSHD_CONFIG" > "${SSHD_CONFIG}.tmp" \
             && mv "${SSHD_CONFIG}.tmp" "$SSHD_CONFIG"
     else
         echo "${key} ${value}" >> "$SSHD_CONFIG"
