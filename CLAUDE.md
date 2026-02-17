@@ -8,7 +8,7 @@ Collection of standalone bash scripts designed to be fetched and executed via `c
 
 ## Repository Structure
 
-Scripts live at the repository root. Each `.sh` file should be independently executable — no shared libraries or dependencies between scripts.
+Scripts live in the `scripts/` directory. Each `.sh` file should be independently executable — no shared libraries or dependencies between scripts.
 
 ## Script Conventions
 
@@ -28,7 +28,7 @@ When adding or modifying a script, update `README.md` with an entry for it. Each
 One-line description of what it does.
 
 \```bash
-curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/script-name.sh | bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/script-name.sh | bash
 \```
 ```
 
@@ -38,5 +38,5 @@ Keep descriptions terse — sacrifice grammar for brevity (e.g., "Install and co
 
 Remote: `github.com/aon/useful-scripts`. Scripts are served via GitHub raw URLs:
 ```
-curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/<script>.sh | bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/<script>.sh | bash
 ```

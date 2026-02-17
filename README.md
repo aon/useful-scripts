@@ -9,5 +9,5 @@ Collection of standalone bash scripts designed to be fetched and executed via `c
 Disable SSH password authentication, enforcing key-based login only.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/disable-ssh-password.sh | bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/disable-ssh-password.sh | bash
 ```
