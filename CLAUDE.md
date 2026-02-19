@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Purpose
 
-Collection of standalone bash scripts designed to be fetched and executed via `curl | bash`. Each script is a self-contained Linux/macOS utility.
+Collection of standalone bash scripts designed to be fetched and executed via `curl | bash`. Each script is a self-contained Linux utility.
 
 ## Repository Structure
 
@@ -16,7 +16,8 @@ Scripts live in the `scripts/` directory. Each `.sh` file should be independentl
 - Scripts must be self-contained: all logic in a single file, no sourcing other files
 - Use `set -euo pipefail` at the top for safety
 - Include a usage/help message accessible via `--help` or `-h`
-- Target both Linux and macOS (use portable commands, avoid GNU-only flags without fallback)
+- Target Linux only
+- Never use `sudo` — scripts are expected to run as root
 
 ## README.md Maintenance
 

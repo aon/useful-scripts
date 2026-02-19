@@ -11,3 +11,11 @@ Disable SSH password authentication, enforcing key-based login only.
 ```bash
 curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/disable-ssh-password.sh | bash
 ```
+
+### `install-tailscale.sh`
+
+Install Tailscale and start it with SSH enabled.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/install-tailscale.sh | bash
+```
