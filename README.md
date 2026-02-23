@@ -12,6 +12,14 @@ Disable SSH password authentication, enforcing key-based login only.
 curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/disable-ssh-password.sh | bash
 ```
 
+### `install-docker.sh`
+
+Install Docker Engine on Ubuntu/Debian using the official apt repository.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/install-docker.sh | bash
+```
+
 ### `install-tailscale.sh`
 
 Install Tailscale and start it with SSH enabled.
