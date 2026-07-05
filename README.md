@@ -12,6 +12,14 @@ Create the `agustin` user with zsh, docker group access (if present), and dotfil
 curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/create-user.sh | bash
 ```
 
+### `install-tools.sh`
+
+Install the CLI tools the dotfiles expect (eza, fzf, zoxide, neovim, lazygit) into `/usr/local/bin` on Debian/Ubuntu.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/install-tools.sh | bash
+```
+
 ### `disable-ssh-password.sh`
 
 Disable SSH password authentication, enforcing key-based login only.

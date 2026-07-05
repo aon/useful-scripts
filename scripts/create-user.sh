@@ -29,7 +29,11 @@ fi
 # Install prerequisites.
 echo "Installing prerequisites (zsh, git, stow)..."
 apt-get update
-apt-get install -y zsh git stow ca-certificates
+apt-get install -y zsh git stow ca-certificates curl
+
+# Install the CLI tools the dotfiles expect (eza, fzf, zoxide, neovim, lazygit).
+echo "Installing CLI tools..."
+curl -fsSL https://raw.githubusercontent.com/aon/useful-scripts/refs/heads/main/scripts/install-tools.sh | bash
 
 ZSH_BIN="$(command -v zsh)"
 
