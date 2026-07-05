@@ -26,10 +26,11 @@ if [[ "$(id -u)" -ne 0 ]]; then
     exit 1
 fi
 
-# Install prerequisites.
-echo "Installing prerequisites (zsh, git, stow)..."
+# Install prerequisites. build-essential and python3 are needed to compile
+# native node modules (e.g. node-pty) that have no prebuilt Linux binaries.
+echo "Installing prerequisites (zsh, git, stow, build tools)..."
 apt-get update
-apt-get install -y zsh git stow ca-certificates curl
+apt-get install -y zsh git stow ca-certificates curl build-essential python3 sudo
 
 # Install the CLI tools the dotfiles expect (eza, fzf, zoxide, neovim, lazygit).
 echo "Installing CLI tools..."
@@ -47,6 +48,14 @@ else
 fi
 
 USER_HOME="$(getent passwd "$USERNAME" | cut -d: -f6)"
+
+# Grant passwordless sudo. The account has no password, so NOPASSWD lets it run
+# privileged commands without one.
+echo "Granting passwordless sudo to '$USERNAME'."
+usermod -aG sudo "$USERNAME"
+printf '%s ALL=(ALL) NOPASSWD:ALL\n' "$USERNAME" > "/etc/sudoers.d/$USERNAME"
+chmod 0440 "/etc/sudoers.d/$USERNAME"
+visudo -cf "/etc/sudoers.d/$USERNAME"
 
 # Grant docker access if the docker group exists.
 if getent group docker &>/dev/null; then
