@@ -105,6 +105,27 @@ su - "$USERNAME" -s /bin/bash -c '
     . "$NVM_DIR/nvm.sh"
     nvm install --lts
 
+    # Install bun (into ~/.bun) if missing; the dotfiles already add it to PATH.
+    export BUN_INSTALL="$HOME/.bun"
+    if [[ ! -x "$BUN_INSTALL/bin/bun" ]]; then
+        curl -fsSL https://bun.sh/install | bash
+    fi
+    export PATH="$BUN_INSTALL/bin:$PATH"
+
+    # Install Claude Code (into ~/.local/bin, already on PATH via the dotfiles).
+    if ! command -v claude &>/dev/null && [[ ! -x "$HOME/.local/bin/claude" ]]; then
+        curl -fsSL https://claude.ai/install.sh | bash
+    fi
+
+    # Install the pi coding agent (into ~/.bun/bin) via bun.
+    if [[ ! -x "$BUN_INSTALL/bin/pi" ]]; then
+        bun install -g @earendil-works/pi-coding-agent
+    fi
+
+    # The bun/claude installers may append PATH lines to stowed shell rc files;
+    # the dotfiles already set those paths, so revert edits to keep the repo clean.
+    git -C "$HOME/.dotfiles" checkout -- . 2>/dev/null || true
+
     echo ""
     echo "==> Add this SSH key to GitHub (authentication + signing key):"
     echo "    https://github.com/settings/keys"
