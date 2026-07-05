@@ -73,6 +73,15 @@ su - "$USERNAME" -s /bin/bash -c '
     fi
     cd "$dest"
     stow -t "$HOME" .
+
+    # Install nvm (into ~/.nvm) and the latest LTS node. The dotfiles lazy-load
+    # nvm from $NVM_DIR, so PROFILE=/dev/null keeps the installer from editing them.
+    export NVM_DIR="$HOME/.nvm"
+    if [[ ! -s "$NVM_DIR/nvm.sh" ]]; then
+        PROFILE=/dev/null bash -c "curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash"
+    fi
+    . "$NVM_DIR/nvm.sh"
+    nvm install --lts
 '
 
-echo "Done. User '$USERNAME' is ready with zsh and dotfiles installed."
+echo "Done. User '$USERNAME' is ready with zsh, dotfiles, and node installed."
