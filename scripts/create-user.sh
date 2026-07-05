@@ -30,7 +30,7 @@ fi
 # native node modules (e.g. node-pty) that have no prebuilt Linux binaries.
 echo "Installing prerequisites (zsh, git, stow, build tools)..."
 apt-get update
-apt-get install -y zsh git stow ca-certificates curl build-essential python3 sudo
+apt-get install -y zsh git stow ca-certificates curl build-essential python3 sudo openssh-client
 
 # Install the CLI tools the dotfiles expect (eza, fzf, zoxide, neovim, lazygit).
 echo "Installing CLI tools..."
@@ -69,6 +69,19 @@ fi
 echo "Installing dotfiles into ${USER_HOME}/.dotfiles..."
 su - "$USERNAME" -s /bin/bash -c '
     set -euo pipefail
+
+    # Generate an SSH key if none exists. Used both for pushing to GitHub
+    # (pushInsteadOf sends pushes over SSH) and for signing commits (the
+    # dotfiles .gitconfig sets gpg.format=ssh with ~/.ssh/id_ed25519.pub).
+    if [[ ! -f "$HOME/.ssh/id_ed25519" ]]; then
+        mkdir -p "$HOME/.ssh" && chmod 700 "$HOME/.ssh"
+        ssh-keygen -t ed25519 -N "" -f "$HOME/.ssh/id_ed25519" -C "$USER@$(hostname)"
+    fi
+    # Trust GitHub host key so the first SSH push does not fail verification.
+    if ! grep -q "^github.com " "$HOME/.ssh/known_hosts" 2>/dev/null; then
+        ssh-keyscan -t ed25519 github.com >> "$HOME/.ssh/known_hosts" 2>/dev/null
+    fi
+
     repo="'"$DOTFILES_REPO"'"
     dest="$HOME/.dotfiles"
     if [[ ! -d "$dest/.git" ]]; then
@@ -91,6 +104,11 @@ su - "$USERNAME" -s /bin/bash -c '
     fi
     . "$NVM_DIR/nvm.sh"
     nvm install --lts
+
+    echo ""
+    echo "==> Add this SSH key to GitHub (authentication + signing key):"
+    echo "    https://github.com/settings/keys"
+    cat "$HOME/.ssh/id_ed25519.pub"
 '
 
 echo "Done. User '$USERNAME' is ready with zsh, dotfiles, and node installed."
