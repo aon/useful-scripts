@@ -94,7 +94,10 @@ su - "$USERNAME" -s /bin/bash -c '
             pull --recurse-submodules
     fi
     cd "$dest"
-    stow -t "$HOME" .
+    # --no-folding: create real directories and symlink individual files, so
+    # apps that write new files into ~/.config, ~/.claude, etc. do not end up
+    # writing inside the dotfiles repo (which folded dir symlinks would cause).
+    stow --no-folding -t "$HOME" .
 
     # Install nvm (into ~/.nvm) and the latest LTS node. The dotfiles lazy-load
     # nvm from $NVM_DIR, so PROFILE=/dev/null keeps the installer from editing them.
